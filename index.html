@@ -8,17 +8,22 @@
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+    <!--High score link and timer-->
     <header>
       <a href="/high-scores.html">High scores</a>
       <p id="timer">Time left</p>
     </header>
 
-    <main class="questions" id="questions">
-      <h1>Challenge Code Quiz</h1>
-      <p>Please press the start button to begin the quiz</p>
-      <button class="btn" id="start-quiz" type="button">Start Quiz</button>
+    <!--Initial page -->
+    <main class="quiz" id="quiz">
+      <div class="container" id="container">
+        <h1 id="intro">Challenge Code Quiz</h1>
+        <p id="explanation">Please press the start button to begin the quiz</p>
+        <button class="btn" id="start-quiz" type="button">Start Quiz</button>
+      </div>
     </main>
 
+    <!--Div to put results of user answers-->
     <div class="responses" id="responses"></div>
     <script src="assets/js/script.js"></script>
   </body>
