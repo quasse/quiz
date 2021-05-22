@@ -1,5 +1,5 @@
 var timerEl = document.getElementById("timer");
-var startButtonEl = document.getElementById("start-quiz");
+var startButton = document.getElementById("start-quiz");
 
 var timer = function () {
   var timeLeft = 60;
@@ -19,4 +19,4 @@ var displayMessage = function () {
   timerEl.append("Hello");
 };
 
-startButtonEl.addEventListener("click", timer);
+startButton.addEventListener("click", timer);
