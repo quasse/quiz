@@ -8,6 +8,7 @@
   --tertiary: #f4e8c1;
 }
 
+/**Initial page setup **/
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -57,4 +58,23 @@ header p {
 
 .btn:active {
   box-shadow: 0 0px gray;
+}
+
+/**Initial setup end**/
+
+/** Question styles **/
+
+.questions {
+  border: 2px solid black;
+}
+
+.questions h2 {
+  text-align: left;
+}
+
+.questions .btn {
+  width: 200px;
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
 }

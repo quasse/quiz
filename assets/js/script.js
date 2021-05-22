@@ -20,9 +20,9 @@ var timer = function () {
 var quizHandler = function () {
   var firstQuestionEl = document.createElement("div");
 
-  firstQuestionEl.className = "question";
+  firstQuestionEl.className = "questions";
 
-  firstQuestionEl.innerHTML = "<h2> Please answer one or two </h2>";
+  firstQuestionEl.innerHTML = "<h2> Please answer one or two.</h2>";
 
   var option1 = document.createElement("button");
   option1.className = "btn option1";
