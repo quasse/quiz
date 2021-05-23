@@ -1,6 +1,7 @@
 var timerEl = document.getElementById("timer");
 var startButton = document.getElementById("start-quiz");
 var quizContent = document.getElementById("quiz");
+var answerContent = document.getElementById("responses");
 
 //Array of question objects
 var questionsArr = [
@@ -67,20 +68,21 @@ var addQuestion = function () {
     questionEl.append(option);
   }
 
-  var container = document.getElementById("quiz");
+  quizContent.innerHTML = "";
 
-  container.innerHTML = "";
-
-  container.append(questionEl);
+  quizContent.append(questionEl);
 };
 
 // Determines if answer is correct or incorrect
 var answerHandler = function (event) {
   var targetEl = event.target.textContent;
   var rightAnswer = questionsArr[quizCounter].correct;
+  var isRight = false;
 
   if (targetEl === rightAnswer) {
     score++;
+    isRight = true;
+    //TODO Add function to display message indicating right answer
   }
 
   if (targetEl !== "Start Quiz") {
@@ -88,8 +90,9 @@ var answerHandler = function (event) {
     if (targetEl !== rightAnswer) {
       clearInterval(timeInterval);
       timer(time - 10);
-      //TODO: Add function to display message indicating wrong answer
+      // TODO: Add function to display message indicating wrong answer
     }
+    answerMessage(isRight);
     //TODO: Change to less than 5
     if (quizCounter < 2) {
       addQuestion();
@@ -98,6 +101,21 @@ var answerHandler = function (event) {
       console.log(score);
     }
   }
+};
+
+var answerMessage = function (isRight) {
+  var answerEl = document.createElement("div");
+  answerEl.className = "answer";
+
+  if (isRight) {
+    answerEl.textContent = "You got question " + quizCounter + " correct!";
+  } else {
+    answerEl.textContent = "You got question " + quizCounter + " incorrect!";
+  }
+
+  answerContent.innerHTML = "";
+
+  answerContent.append(answerEl);
 };
 
 startButton.addEventListener("click", quizHandler);
