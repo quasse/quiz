@@ -64,10 +64,6 @@ header p {
 
 /** Question styles **/
 
-.questions {
-  border: 2px solid black;
-}
-
 .questions h2 {
   text-align: left;
 }

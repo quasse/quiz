@@ -74,22 +74,18 @@ var answerHandler = function (event) {
   var rightAnswer = questionsArr[quizCounter].correct;
 
   if (targetEl === rightAnswer) {
-    correctHandler();
-    // check to make sure button check is not the start quiz button
-  } else if (targetEl !== "Start Quiz") {
-    wrongHandler();
+    score++;
   }
-};
 
-var correctHandler = function () {
-  quizCounter++;
-  score++;
-  addQuestion();
-};
-
-var wrongHandler = function () {
-  quizCounter++;
-  addQuestion();
+  if (targetEl !== "Start Quiz") {
+    quizCounter++;
+    if (quizCounter < 2) {
+      addQuestion();
+    } else {
+      //TODO: Add end game function
+      console.log(score);
+    }
+  }
 };
 
 startButton.addEventListener("click", quizHandler);
