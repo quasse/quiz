@@ -2,6 +2,26 @@ var timerEl = document.getElementById("timer");
 var startButton = document.getElementById("start-quiz");
 var quizContent = document.getElementById("quiz");
 
+//Array of question objects
+var questionsArr = [
+  {
+    question:
+      "What data type in Javascript can hold multiple values as a list?",
+    answers: ["integer", "string", "array"],
+    correct: "array",
+  },
+  {
+    question: "A boolean is a variable that is either true of false",
+    answers: ["true", "false"],
+    correct: "true",
+  },
+];
+
+// Counter to keep track of questions asked
+var quizCounter = 0;
+
+var score = 0;
+
 // Function to keep track of the timer
 var timer = function () {
   var timeLeft = 60;
@@ -12,44 +32,62 @@ var timer = function () {
       timeLeft--;
     } else {
       countdown.textContent = "Out of time";
+      // TODO: Add function to display out of time message
       clearInterval(timeInterval);
     }
   }, 1000);
 };
 
+// Handles the quiz questions
 var quizHandler = function () {
-  var firstQuestionEl = document.createElement("div");
-
-  firstQuestionEl.className = "questions";
-
-  firstQuestionEl.innerHTML = "<h2> Please answer one or two.</h2>";
-
-  var option1 = document.createElement("button");
-  option1.className = "btn option1";
-  option1.textContent = "Pick me";
-  firstQuestionEl.appendChild(option1);
-
-  var option2 = document.createElement("button");
-  option2.textContent = "No pick me!";
-  option2.className = "btn option2";
-  firstQuestionEl.appendChild(option2);
-
-  var container = document.getElementById("container");
-
-  quizContent.replaceChild(firstQuestionEl, container);
   timer();
+  addQuestion();
 };
 
+//Function to add question to page
+var addQuestion = function () {
+  var questionEl = document.createElement("div");
+
+  questionEl.className = "questions";
+
+  var questionObject = questionsArr[quizCounter];
+
+  questionEl.innerHTML = "<h2>" + questionObject.question + "</h2>";
+
+  for (var i = 0; i < questionObject.answers.length; i++) {
+    var option = document.createElement("button");
+    option.className = "btn";
+    option.textContent = questionObject.answers[i];
+    questionEl.append(option);
+  }
+  var container = document.getElementById("container");
+
+  //Need to fix this where it does not advance to the next question
+  quizContent.replaceChild(questionEl, container);
+};
+
+// Determines if answer is correct or incorrect
 var answerHandler = function (event) {
-  var targetEl = event.target;
+  var targetEl = event.target.textContent;
+  var rightAnswer = questionsArr[quizCounter].correct;
 
-  if (targetEl.matches(".option1")) {
-    console.log("option 1");
+  if (targetEl === rightAnswer) {
+    correctHandler();
+    // check to make sure button check is not the start quiz button
+  } else if (targetEl !== "Start Quiz") {
+    wrongHandler();
   }
+};
 
-  if (targetEl.matches(".option2")) {
-    console.log("option 2");
-  }
+var correctHandler = function () {
+  quizCounter++;
+  score++;
+  addQuestion();
+};
+
+var wrongHandler = function () {
+  quizCounter++;
+  addQuestion();
 };
 
 startButton.addEventListener("click", quizHandler);
