@@ -60,10 +60,12 @@ var addQuestion = function () {
     option.textContent = questionObject.answers[i];
     questionEl.append(option);
   }
-  var container = document.getElementById("container");
 
-  //Need to fix this where it does not advance to the next question
-  quizContent.replaceChild(questionEl, container);
+  var container = document.getElementById("quiz");
+
+  container.innerHTML = "";
+
+  container.append(questionEl);
 };
 
 // Determines if answer is correct or incorrect
