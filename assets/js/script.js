@@ -22,14 +22,20 @@ var quizCounter = 0;
 
 var score = 0;
 
+// Variable to keep track of how much time has passed
+var time = 0;
+
+// Variable for the countdown
+var timeInterval;
+
 // Function to keep track of the timer
-var timer = function () {
-  var timeLeft = 60;
-  var timeInterval = setInterval(function () {
+var timer = function (timeLeft) {
+  timeInterval = setInterval(function () {
     var countdown = timerEl;
     if (timeLeft >= 1) {
       countdown.textContent = "Time left: " + timeLeft;
       timeLeft--;
+      time = timeLeft;
     } else {
       countdown.textContent = "Out of time";
       // TODO: Add function to display out of time message
@@ -40,7 +46,7 @@ var timer = function () {
 
 // Handles the quiz questions
 var quizHandler = function () {
-  timer();
+  time = timer(60);
   addQuestion();
 };
 
@@ -79,6 +85,12 @@ var answerHandler = function (event) {
 
   if (targetEl !== "Start Quiz") {
     quizCounter++;
+    if (targetEl !== rightAnswer) {
+      clearInterval(timeInterval);
+      timer(time - 10);
+      //TODO: Add function to display message indicating wrong answer
+    }
+    //TODO: Change to less than 5
     if (quizCounter < 2) {
       addQuestion();
     } else {
