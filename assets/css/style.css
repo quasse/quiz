@@ -74,3 +74,12 @@ header p {
   margin: 10px;
   flex-direction: column;
 }
+
+/**Question styles end**/
+
+/**Answer styles begin**/
+.answer {
+  text-align: center;
+  margin: 50px;
+  font-size: larger;
+}
