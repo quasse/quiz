@@ -29,6 +29,9 @@ var time = 0;
 // Variable for the countdown
 var timeInterval;
 
+//Variable for holding user's initials
+var initials;
+
 // Function to keep track of the timer
 var timer = function (timeLeft) {
   timeInterval = setInterval(function () {
@@ -39,8 +42,7 @@ var timer = function (timeLeft) {
       time = timeLeft;
     } else {
       countdown.textContent = "Out of time";
-      // TODO: Add function to display out of time message
-      clearInterval(timeInterval);
+      endGame();
     }
   }, 1000);
 };
@@ -90,19 +92,18 @@ var answerHandler = function (event) {
     if (targetEl !== rightAnswer) {
       clearInterval(timeInterval);
       timer(time - 10);
-      // TODO: Add function to display message indicating wrong answer
     }
     answerMessage(isRight);
     //TODO: Change to less than 5
     if (quizCounter < 2) {
       addQuestion();
     } else {
-      //TODO: Add end game function
-      console.log(score);
+      endGame();
     }
   }
 };
 
+// Function to display user's answer
 var answerMessage = function (isRight) {
   var answerEl = document.createElement("div");
   answerEl.className = "answer";
@@ -116,6 +117,74 @@ var answerMessage = function (isRight) {
   answerContent.innerHTML = "";
 
   answerContent.append(answerEl);
+};
+
+//Function to handle the end of game
+var endGame = function () {
+  quizContent.removeEventListener("click", answerHandler);
+
+  clearInterval(timeInterval);
+  quizContent.innerHTML = "";
+
+  //Create div to hold final quiz elements
+  var finalScreenEl = document.createElement("form");
+  finalScreenEl.className = "final-screen";
+
+  //Message indicating quiz is over
+  var finalMessage = document.createElement("h2");
+  finalMessage.textContent = "All done!";
+
+  finalScreenEl.append(finalMessage);
+
+  //Score
+  var finalScore = document.createElement("p");
+  finalScore.textContent = "Your score is " + score;
+  finalScreenEl.append(finalScore);
+
+  // Form to enter initials and take user to high score page
+  var finalForm = document.createElement("form");
+  finalForm.setAttribute("id", "submit-form");
+
+  //Input box
+  var inputBox = document.createElement("input");
+  inputBox.setAttribute("type", "text");
+  inputBox.setAttribute("name", "input-box");
+  inputBox.setAttribute("placeholder", "Please enter initials");
+
+  //Submission button
+  var submitBtn = document.createElement("button");
+  submitBtn.className = "btn";
+  submitBtn.setAttribute("id", "save-initials");
+  submitBtn.setAttribute("type", "submit");
+  submitBtn.textContent = "Submit";
+
+  //Add Form elements to form
+  finalForm.append(inputBox);
+  finalForm.append(submitBtn);
+
+  //Add form to final screen element
+  finalScreenEl.append(finalForm);
+
+  //Add final screen element to the window
+  quizContent.append(finalScreenEl);
+
+  //Event listener to handle user submission
+  finalForm.addEventListener("submit", submitHandler);
+};
+
+// Function to handle form submissions
+var submitHandler = function () {
+  //Get user input
+  initials = document.querySelector("input[name='input-box']").value;
+  var combinedInput = [initials, score];
+  localStorage.setItem("scores", JSON.stringify(combinedInput));
+  showHighScores();
+};
+
+var showHighScores = function () {
+  quizContent.innerHTML = "";
+  var savedScores = localStorage.getItem("scores");
+  console.log(savedScores);
 };
 
 startButton.addEventListener("click", quizHandler);
