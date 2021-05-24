@@ -247,7 +247,7 @@ var showHighScores = function () {
   var backBtn = document.createElement("button");
   backBtn.className = "btn";
   backBtn.textContent = "Go Back";
-  backBtn.setAttribute("onclick", "location.href='/quiz'");
+  backBtn.setAttribute("onclick", "location.href='./index.html'");
 
   //Button element to clear cache
   var clearBtn = document.createElement("button");
