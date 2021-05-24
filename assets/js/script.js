@@ -176,16 +176,65 @@ var endGame = function () {
 var submitHandler = function () {
   //Get user input
   initials = document.querySelector("input[name='input-box']").value;
-  var combinedInput = [initials, score];
-  localStorage.setItem("scores", JSON.stringify(combinedInput));
+
+  //Create object using user's initial and score
+  var userScore = {
+    name: initials,
+    score: score,
+  };
+
+  //Add the score object to the array of score objects
+  highScores[highScores.length] = userScore;
+
+  //Save the array to localStorage
+  localStorage.setItem("scores", JSON.stringify(highScores));
+
+  //Call function to display scores
   showHighScores();
 };
 
+//Display scores on page
 var showHighScores = function () {
   quizContent.innerHTML = "";
+
+  var highScoreEl = document.createElement("div");
+
+  // Title element
+  var highScoreTitle = document.createElement("h2");
+  highScoreTitle.textContent = "High Scores";
+  highScoreEl.append(highScoreTitle);
+
+  //Scoreboard element
+  var scoreboard = document.createElement("div");
+
+  //Iterate through array to set scores on screen
+  for (i = 0; i < highScores.length; i++) {
+    var scoreEl = document.createElement("p");
+    scoreEl.textContent = highScores[i].name + ": " + highScores[i].score;
+    //console.log([highScores[i].name + " " + highScores[i].score]);
+    scoreboard.append(scoreEl);
+  }
+
+  //Append elements to screen
+  highScoreEl.append(scoreboard);
+  quizContent.append(highScoreEl);
+};
+
+//Function to loadLocalstorage scores
+var loadScores = function () {
   var savedScores = localStorage.getItem("scores");
-  console.log(savedScores);
+
+  if (!savedScores) {
+    return [];
+  }
+
+  savedScores = JSON.parse(savedScores);
+
+  return savedScores;
 };
 
 startButton.addEventListener("click", quizHandler);
 quizContent.addEventListener("click", answerHandler);
+
+//Global variable to keep track of scores that have been saved already to localStorage
+var highScores = loadScores();
