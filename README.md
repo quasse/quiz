@@ -18,7 +18,7 @@ https://quasse.github.io/quiz/
 
 ## Screenshot
 
-![Screenshot of launch screen for quiz](/assets/images/screenshot.png)
+![Screenshot of launch screen for quiz](assets/images/screenshot.png)
 
 ## Contribution
 
