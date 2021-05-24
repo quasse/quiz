@@ -105,25 +105,33 @@ var addQuestion = function () {
 // Determines if answer is correct or incorrect
 var answerHandler = function (event) {
   var targetEl = event.target.textContent;
+  var targetElClass = event.target.className;
   var rightAnswer = questionsArr[quizCounter].correct;
   var isRight = false;
 
-  if (targetEl === rightAnswer) {
-    score++;
-    isRight = true;
-  }
-
-  if (targetEl !== "Start Quiz") {
-    quizCounter++;
-    if (targetEl !== rightAnswer) {
-      clearInterval(timeInterval);
-      timer(time - 10);
+  //Check to make sure a button was clicked
+  if (targetElClass === "btn") {
+    if (targetEl === rightAnswer) {
+      score++;
+      isRight = true;
     }
-    answerMessage(isRight);
-    if (quizCounter < 5) {
-      addQuestion();
-    } else {
-      endGame();
+    // Check to make sure button that was clicked was not the start quiz button
+    if (targetEl !== "Start Quiz") {
+      //Advance question counter
+      quizCounter++;
+      //If the user's answer was not right, subtract 10 seconds
+      if (targetEl !== rightAnswer) {
+        clearInterval(timeInterval);
+        timer(time - 10);
+      }
+      //Call function to tell user if they were right or wrong
+      answerMessage(isRight);
+      //Check if end of the game. If it is, show end game screen. If there are more questions, display question
+      if (quizCounter < 5) {
+        addQuestion();
+      } else {
+        endGame();
+      }
     }
   }
 };
@@ -237,7 +245,6 @@ var showHighScores = function () {
   for (i = 0; i < highScores.length; i++) {
     var scoreEl = document.createElement("p");
     scoreEl.textContent = highScores[i].name + ": " + highScores[i].score;
-    //console.log([highScores[i].name + " " + highScores[i].score]);
     scoreboard.append(scoreEl);
   }
 
