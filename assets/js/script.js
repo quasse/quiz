@@ -16,6 +16,32 @@ var questionsArr = [
     answers: ["true", "false"],
     correct: "true",
   },
+  {
+    question:
+      "What programming language primarily controls the style of websites?",
+    answers: ["HTML", "Javascript", "C++", "CSS"],
+    correct: "CSS",
+  },
+  {
+    question: "What does DOM stand for?",
+    answers: [
+      "Display Oriented Mobility",
+      "Document Object Model",
+      "Driving Over Microprocessors",
+    ],
+    correct: "Document Object Model",
+  },
+  {
+    question:
+      "What command submits code to the main branch of a remote github repository?",
+    answers: [
+      "git status",
+      "git add .",
+      "git push origin main",
+      "git commit -m <message>?",
+    ],
+    correct: "git push origin main",
+  },
 ];
 
 // Counter to keep track of questions asked
@@ -84,7 +110,6 @@ var answerHandler = function (event) {
   if (targetEl === rightAnswer) {
     score++;
     isRight = true;
-    //TODO Add function to display message indicating right answer
   }
 
   if (targetEl !== "Start Quiz") {
@@ -94,8 +119,7 @@ var answerHandler = function (event) {
       timer(time - 10);
     }
     answerMessage(isRight);
-    //TODO: Change to less than 5
-    if (quizCounter < 2) {
+    if (quizCounter < 5) {
       addQuestion();
     } else {
       endGame();
