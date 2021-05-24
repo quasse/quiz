@@ -49,6 +49,7 @@ header p {
   box-shadow: 0 3px gray;
   font-size: 20px;
   font-weight: bold;
+  margin: 5px;
 }
 
 .btn:hover {

@@ -215,9 +215,29 @@ var showHighScores = function () {
     scoreboard.append(scoreEl);
   }
 
+  var buttonEl = document.createElement("div");
+
+  //Button element to go back to start quiz screen
+  var backBtn = document.createElement("button");
+  backBtn.className = "btn";
+  backBtn.textContent = "Go Back";
+  backBtn.setAttribute("onclick", "location.href='/'");
+
+  //Button element to clear cache
+  var clearBtn = document.createElement("button");
+  clearBtn.className = "btn";
+  clearBtn.textContent = "Clear High Scores";
+
+  buttonEl.append(backBtn);
+  buttonEl.append(clearBtn);
+
   //Append elements to screen
   highScoreEl.append(scoreboard);
+  highScoreEl.append(buttonEl);
   quizContent.append(highScoreEl);
+
+  //eventListener for clear high scores button
+  clearBtn.addEventListener("click", clearHighScores);
 };
 
 //Function to loadLocalstorage scores
@@ -231,6 +251,11 @@ var loadScores = function () {
   savedScores = JSON.parse(savedScores);
 
   return savedScores;
+};
+
+var clearHighScores = function () {
+  highScores = [];
+  localStorage.setItem("scores", highScores);
 };
 
 startButton.addEventListener("click", quizHandler);
