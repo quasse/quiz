@@ -61,6 +61,17 @@ header p {
   box-shadow: 0 0px gray;
 }
 
+.score-btn {
+  outline: none;
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+
+.score-btn:hover {
+  font-weight: bold;
+}
+
 /**Initial setup end**/
 
 /** Question styles **/

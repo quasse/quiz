@@ -2,6 +2,7 @@ var timerEl = document.getElementById("timer");
 var startButton = document.getElementById("start-quiz");
 var quizContent = document.getElementById("quiz");
 var answerContent = document.getElementById("responses");
+var highScoreBtn = document.getElementById("high-scores");
 
 //Array of question objects
 var questionsArr = [
@@ -217,7 +218,7 @@ var submitHandler = function () {
   showHighScores();
 };
 
-//Display scores on page
+// Function to display scores on page
 var showHighScores = function () {
   quizContent.innerHTML = "";
 
@@ -230,6 +231,7 @@ var showHighScores = function () {
 
   //Scoreboard element
   var scoreboard = document.createElement("div");
+  scoreboard.setAttribute("id", "scoreboard");
 
   //Iterate through array to set scores on screen
   for (i = 0; i < highScores.length; i++) {
@@ -277,13 +279,18 @@ var loadScores = function () {
   return savedScores;
 };
 
+//Function to clear high scores from localstorage
 var clearHighScores = function () {
+  var scoreboardEl = document.getElementById("scoreboard");
   highScores = [];
   localStorage.setItem("scores", highScores);
+  scoreboardEl.innerHTML = "";
+  scoreboardEl.textContent = "Scores have been cleared";
 };
 
 startButton.addEventListener("click", quizHandler);
 quizContent.addEventListener("click", answerHandler);
+highScoreBtn.addEventListener("click", showHighScores);
 
 //Global variable to keep track of scores that have been saved already to localStorage
 var highScores = loadScores();
