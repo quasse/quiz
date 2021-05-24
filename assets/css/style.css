@@ -84,3 +84,11 @@ header p {
   margin: 50px;
   font-size: larger;
 }
+
+/**Form stles begin**/
+input {
+  outline: none;
+  border-radius: 10px;
+  border: 2px solid var(--tertiary);
+  height: 40px;
+}
