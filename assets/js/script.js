@@ -293,7 +293,7 @@ var clearHighScores = function () {
   highScores = [];
   localStorage.setItem("scores", highScores);
   //Send user back to home screen
-  window.location.href = "../quiz.index.html";
+  window.location.href = "./index.html";
   alert("High scores have been cleared");
 };
 
