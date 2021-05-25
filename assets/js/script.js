@@ -90,6 +90,7 @@ var addQuestion = function () {
 
   questionEl.innerHTML = "<h2>" + questionObject.question + "</h2>";
 
+  //Iterates through array of buttons and displays each button
   for (var i = 0; i < questionObject.answers.length; i++) {
     var option = document.createElement("button");
     option.className = "btn";
@@ -141,6 +142,7 @@ var answerMessage = function (isRight) {
   var answerEl = document.createElement("div");
   answerEl.className = "answer";
 
+  //Check if user got the answer right or wrong and display appropriate message
   if (isRight) {
     answerEl.textContent = "You got question " + quizCounter + " correct!";
   } else {
@@ -288,11 +290,11 @@ var loadScores = function () {
 
 //Function to clear high scores from localstorage
 var clearHighScores = function () {
-  var scoreboardEl = document.getElementById("scoreboard");
   highScores = [];
   localStorage.setItem("scores", highScores);
-  scoreboardEl.innerHTML = "";
-  scoreboardEl.textContent = "Scores have been cleared";
+  //Send user back to home screen
+  window.location.href = "../index.html";
+  alert("High scores have been cleared");
 };
 
 startButton.addEventListener("click", quizHandler);
